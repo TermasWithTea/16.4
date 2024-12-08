@@ -22,12 +22,12 @@ async def post_ret(username: str, age: int) -> User:
     return user
 
 @app.put('/user/{user_id}/{username}/{age}')
-async def put_ret(user_id: int, username: str, age: str) -> str:
+async def put_user(user_id: int, username: str, age: int) -> User:
     if user_id not in users:
-        raise HTTPException(status_code = 404, detail = 'User not found')
-    user = User(username = username, age = age)
+        raise HTTPException(status_code=404, detail='User was not found')
+    user = User(username=username, age=age, id=user_id)
     users[user_id] = user
-    return f'The user {user_id} is update!'
+    return user
 
 @app.delete('/user/{user_id}')
 async def del_del(user_id: int) -> User:
